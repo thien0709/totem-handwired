@@ -13,7 +13,7 @@
 
         // KHAI BÁO CỘT (Hàn bên TRÁI chip SuperMini)
         col-gpios
-            = <&gpio0 6  GPIO_ACTIVE_HIGH> // Col 0: Chân 006
+            = <&gpio0 9  GPIO_ACTIVE_HIGH> // Col 0: Chân 006
             , <&gpio0 8  GPIO_ACTIVE_HIGH> // Col 1: Chân 008
             , <&gpio0 17 GPIO_ACTIVE_HIGH> // Col 2: Chân 017
             , <&gpio0 20 GPIO_ACTIVE_HIGH> // Col 3: Chân 020
