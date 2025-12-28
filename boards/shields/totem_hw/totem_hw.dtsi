@@ -31,7 +31,7 @@
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
-        columns = <5>;
+        columns = <10>;
         rows = <4>;
         // Map cho Totem 38 phím
         map = <
