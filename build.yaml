@@ -3,3 +3,5 @@ include:
     shield: totem_hw_left
   - board: nice_nano_v2
     shield: totem_hw_right
+  - board: nice_nano_v2
+    shield: settings_reset
