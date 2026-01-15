@@ -6,30 +6,6 @@
         zmk,matrix-transform = &default_transform;
     };
 
-    // --- SỬA CẤU HÌNH ENCODER ---
-    left_encoder: encoder_left {
-        compatible = "alps,ec11";
-        a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <4>; // Thay steps = <80> bằng dòng này. (4 xung = 1 nấc)
-        status = "disabled";
-    };
-
-    right_encoder: encoder_right {
-        compatible = "alps,ec11";
-        a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <4>; // Thay steps = <80> bằng dòng này.
-        status = "disabled";
-    };
-
-    sensors {
-        compatible = "zmk,keymap-sensors";
-        sensors = <&left_encoder &right_encoder>;
-        triggers-per-rotation = <20>; // Giữ nguyên dòng này để khớp tốc độ
-    };
-    // ----------------------------
-
     kscan_matrix: kscan_matrix {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
