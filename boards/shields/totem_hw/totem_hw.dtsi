@@ -75,3 +75,13 @@
         >;
     };
 };
+
+&sensors {
+    left_config {
+        triggers-per-rotation = <18>;
+    };
+
+    right_config {
+        triggers-per-rotation = <24>;
+    };
+};
