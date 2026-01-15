@@ -6,35 +6,35 @@
         zmk,matrix-transform = &default_transform;
     };
 
-    // 1. ĐỊNH NGHĨA PHẦN CỨNG ENCODER
+    // 1. KHAI BÁO CUỘN CHUỘT TRÁI (Dùng driver ec11)
     left_encoder: encoder_left {
         compatible = "alps,ec11";
-        // Chân A/B nối vào P1.11 và P1.13
+        label = "LEFT_ENCODER";
+        // Chân trên vào 1.11, chân dưới vào 1.13, chân giữa nối GND
         a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <4>; // Độ nhạy: 4 xung = 1 nấc (quan trọng để không bị trượt)
+        steps = <24>; // Cuộn chuột thường có khoảng 24 nấc
         status = "disabled";
     };
 
+    // 2. KHAI BÁO CUỘN CHUỘT PHẢI
     right_encoder: encoder_right {
         compatible = "alps,ec11";
-        // Chân A/B nối vào P1.11 và P1.13 (trên mạch phải)
+        label = "RIGHT_ENCODER";
         a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <4>; 
+        steps = <24>; 
         status = "disabled";
     };
 
-    // 2. KẾT NỐI SENSOR VÀO HỆ THỐNG
-    // Node này bắt buộc phải có tên nhãn là 'sensors' hoặc tương tự để keymap gọi được
+    // 3. KÍCH HOẠT SENSOR
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
-        // Danh sách sensor: Trái là số 1, Phải là số 2
         sensors = <&left_encoder &right_encoder>;
         triggers-per-rotation = <20>;
     };
 
-    // 3. MA TRẬN PHÍM (Giữ nguyên cấu hình cũ của bạn)
+    // 4. MA TRẬN PHÍM
     kscan_matrix: kscan_matrix {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
@@ -47,13 +47,13 @@
             , <&gpio1 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 
-    // 4. NÚT BẤM ENCODER (Chân 010)
+    // 5. NÚT NHẤN CỦA CUỘN CHUỘT (Click chuột giữa)
     kscan_direct: kscan_direct {
         compatible = "zmk,kscan-gpio-direct";
         input-gpios = <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 
-    // 5. GỘP MA TRẬN
+    // 6. GỘP LẠI
     kscan0: kscan_composite {
         compatible = "zmk,kscan-composite";
         rows = <5>; 
