@@ -6,10 +6,9 @@
         zmk,matrix-transform = &default_transform;
     };
 
-    // KHAI BÁO ENCODER (XOAY)
+    // KHAI BÁO ENCODER (Chung cấu trúc, nhưng trạng thái tắt)
     left_encoder: encoder_left {
         compatible = "alps,ec11";
-        label = "LEFT_ENCODER";
         a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         steps = <80>;
@@ -18,7 +17,6 @@
 
     right_encoder: encoder_right {
         compatible = "alps,ec11";
-        label = "RIGHT_ENCODER";
         a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         steps = <80>;
@@ -31,24 +29,20 @@
         triggers-per-rotation = <20>;
     };
 
-    // KHAI BÁO MA TRẬN PHÍM CHÍNH
+    // KHAI BÁO MA TRẬN PHÍM (Chỉ khai báo HÀNG, bỏ trống CỘT)
     kscan_matrix: kscan_matrix {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
         diode-direction = "col2row";
 
-        col-gpios
-            = <&gpio0 6  GPIO_ACTIVE_HIGH>
-            , <&gpio0 8  GPIO_ACTIVE_HIGH>
-            , <&gpio0 17 GPIO_ACTIVE_HIGH>
-            , <&gpio0 20 GPIO_ACTIVE_HIGH>
-            , <&gpio0 22 GPIO_ACTIVE_HIGH>;
-
+        // Hàng dùng chung (nếu bạn hàn hàng giống hệt nhau ở 2 bên)
         row-gpios
             = <&gpio0 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&gpio0 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&gpio1 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+            
+        // col-gpios sẽ được định nghĩa ở file overlay từng bên
     };
 
     // KHAI BÁO NÚT NHẤN CỦA ENCODER (Chân 010)
@@ -57,25 +51,35 @@
         input-gpios = <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 
-    // GỘP MA TRẬN VÀ NÚT ENCODER LẠI LÀM 1
+    // GỘP MA TRẬN VÀ NÚT ENCODER
     kscan0: kscan_composite {
         compatible = "zmk,kscan-composite";
-        rows = <5>; // Tăng lên 5 hàng (4 hàng phím + 1 hàng cho encoder button)
-        columns = <10>;
-        children = <&kscan_matrix &kscan_direct>;
+        rows = <5>; 
+        columns = <5>;
+
+        // Phần 1: Ma trận phím
+        matrix {
+            kscan = <&kscan_matrix>;
+        };
+
+        // Phần 2: Nút Encoder (Đẩy xuống Hàng 4)
+        direct {
+            kscan = <&kscan_direct>;
+            row-offset = <4>; 
+        };
     };
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         columns = <10>;
-        rows = <5>; // Cập nhật số hàng
+        rows = <5>;
         map = <
         // TAY TRÁI                          // TAY PHẢI
         RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4)    RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9)
         RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4)    RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9)
         RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4)    RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9)
         RC(3,0) RC(3,2) RC(3,3) RC(3,4)            RC(3,5) RC(3,7) RC(3,8) RC(3,9)
-        // Nút Encoder Trái (Hàng 4 ảo, cột 0)     // Nút Encoder Phải (Hàng 4 ảo, cột 1 - do logic split)
+        // Nút Encoder Trái (Hàng 4, Cột 0)        // Nút Encoder Phải (Hàng 4, Cột 5)
         RC(4,0)                                    RC(4,5)
         >;
     };

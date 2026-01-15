@@ -4,14 +4,16 @@
     col-offset = <5>;
 };
 
-&right_encoder {
-    status = "okay";
+&kscan_matrix {
+    col-gpios
+        = <&gpio0 22 GPIO_ACTIVE_HIGH>
+        , <&gpio0 20 GPIO_ACTIVE_HIGH>
+        , <&gpio0 17 GPIO_ACTIVE_HIGH> 
+        , <&gpio0 8  GPIO_ACTIVE_HIGH> 
+        , <&gpio0 11  GPIO_ACTIVE_HIGH> 
+        ;
 };
 
-// Map nút direct (encoder button) bên phải vào đúng vị trí logic
-&kscan_direct {
-    input-gpios = <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-    // ZMK tự động xử lý offset cho kscan composite dựa trên thứ tự, 
-    // nhưng với split handwired đôi khi cần config kỹ. 
-    // Tạm thời cấu hình này sẽ nhận nút phải như một nút direct riêng biệt.
+&right_encoder {
+    status = "okay";
 };
