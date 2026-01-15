@@ -6,38 +6,40 @@
         zmk,matrix-transform = &default_transform;
     };
 
-    // 1. KHAI BÁO ENCODER TRÁI (Phần này đang bị thiếu trong file của bạn)
+    // 1. ĐỊNH NGHĨA PHẦN CỨNG ENCODER
     left_encoder: encoder_left {
         compatible = "alps,ec11";
+        // Chân A/B nối vào P1.11 và P1.13
         a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <4>; // 4 xung = 1 nấc xoay
+        resolution = <4>; // Độ nhạy: 4 xung = 1 nấc (quan trọng để không bị trượt)
         status = "disabled";
     };
 
-    // 2. KHAI BÁO ENCODER PHẢI (Phần này cũng đang thiếu)
     right_encoder: encoder_right {
         compatible = "alps,ec11";
+        // Chân A/B nối vào P1.11 và P1.13 (trên mạch phải)
         a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         resolution = <4>; 
         status = "disabled";
     };
 
-    // 3. KÍCH HOẠT CẢM BIẾN (Quan trọng: Kết nối encoder vào hệ thống ZMK)
+    // 2. KẾT NỐI SENSOR VÀO HỆ THỐNG
+    // Node này bắt buộc phải có tên nhãn là 'sensors' hoặc tương tự để keymap gọi được
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
+        // Danh sách sensor: Trái là số 1, Phải là số 2
         sensors = <&left_encoder &right_encoder>;
         triggers-per-rotation = <20>;
     };
 
-    // 4. MA TRẬN PHÍM
+    // 3. MA TRẬN PHÍM (Giữ nguyên cấu hình cũ của bạn)
     kscan_matrix: kscan_matrix {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
         diode-direction = "col2row";
 
-        // Khai báo Hàng (Rows)
         row-gpios
             = <&gpio0 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -45,13 +47,13 @@
             , <&gpio1 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 
-    // 5. NÚT NHẤN CỦA ENCODER (Chân 010)
+    // 4. NÚT BẤM ENCODER (Chân 010)
     kscan_direct: kscan_direct {
         compatible = "zmk,kscan-gpio-direct";
         input-gpios = <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 
-    // 6. GỘP MA TRẬN
+    // 5. GỘP MA TRẬN
     kscan0: kscan_composite {
         compatible = "zmk,kscan-composite";
         rows = <5>; 
