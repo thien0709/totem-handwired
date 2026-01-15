@@ -6,11 +6,38 @@
         zmk,matrix-transform = &default_transform;
     };
 
+    // 1. KHAI BÁO ENCODER TRÁI (Phần này đang bị thiếu trong file của bạn)
+    left_encoder: encoder_left {
+        compatible = "alps,ec11";
+        a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>; // 4 xung = 1 nấc xoay
+        status = "disabled";
+    };
+
+    // 2. KHAI BÁO ENCODER PHẢI (Phần này cũng đang thiếu)
+    right_encoder: encoder_right {
+        compatible = "alps,ec11";
+        a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>; 
+        status = "disabled";
+    };
+
+    // 3. KÍCH HOẠT CẢM BIẾN (Quan trọng: Kết nối encoder vào hệ thống ZMK)
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&left_encoder &right_encoder>;
+        triggers-per-rotation = <20>;
+    };
+
+    // 4. MA TRẬN PHÍM
     kscan_matrix: kscan_matrix {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
         diode-direction = "col2row";
 
+        // Khai báo Hàng (Rows)
         row-gpios
             = <&gpio0 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -18,11 +45,13 @@
             , <&gpio1 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 
+    // 5. NÚT NHẤN CỦA ENCODER (Chân 010)
     kscan_direct: kscan_direct {
         compatible = "zmk,kscan-gpio-direct";
         input-gpios = <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 
+    // 6. GỘP MA TRẬN
     kscan0: kscan_composite {
         compatible = "zmk,kscan-composite";
         rows = <5>; 
@@ -49,15 +78,5 @@
         RC(3,0) RC(3,2) RC(3,3) RC(3,4)            RC(3,5) RC(3,7) RC(3,8) RC(3,9)
         RC(4,0)                                    RC(4,5)
         >;
-    };
-};
-
-&sensors {
-    left_config {
-        triggers-per-rotation = <18>;
-    };
-
-    right_config {
-        triggers-per-rotation = <24>;
     };
 };
