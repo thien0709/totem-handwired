@@ -9,7 +9,6 @@
     // Encoder trái
     left_encoder: encoder_left {
         compatible = "alps,ec11";
-        label = "LEFT_ENCODER";
         a-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 11(GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         steps = <24>;
@@ -19,7 +18,6 @@
     // Encoder phải
     right_encoder: encoder_right {
         compatible = "alps,ec11";
-        label = "RIGHT_ENCODER";
         a-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         steps = <24>;
