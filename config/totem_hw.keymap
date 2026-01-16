@@ -2,6 +2,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/mouse.h> // Bắt buộc có để dùng chuột
 
 #define BASE 0
 #define NAV  1
@@ -13,7 +14,7 @@
         compatible = "zmk,combos";
         combo_esc {
             timeout-ms = <50>;
-            key-positions = <16 17>; // J + K = Esc
+            key-positions = <16 17>; 
             bindings = <&kp ESC>;
         };
     };
@@ -27,8 +28,7 @@
     };
 
     behaviors {
-        // Giữ = Ctrl, Nhấp = Esc
-        mt_ctrl_esc: mt_ctrl_esc {
+        mt_thumb: mt_thumb {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
@@ -36,40 +36,41 @@
             quick-tap-ms = <150>;
             bindings = <&kp>, <&kp>;
         };
-
-        // Giữ = Shift, Nhấp = Enter
-        mt_shift_ret: mt_shift_ret {
+        
+        mt_layer: mt_layer {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
             quick-tap-ms = <150>;
-            bindings = <&kp>, <&kp>;
+            bindings = <&mo>, <&kp>;
+        };
+
+        // Scroll Encoder
+        scroll_encoder: scroll_encoder {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>; 
+            tap-ms = <20>; 
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-/*
- * LAYER 0: BASE (QWERTY for Coding)
- * SỬA LỖI: Đã thêm 'ESC' vào sau LCTRL
- */
         base_layer {
             display-name = "Base";
             bindings = <
-    &kp Q          &kp W      &kp E       &kp R       &kp T           &kp Y      &kp U      &kp I       &kp O      &kp P
-    &kp A          &kp S      &kp D       &kp F       &kp G           &kp H      &kp J      &kp K       &kp L      &kp SEMI
-    &kp Z          &kp X      &kp C       &kp V       &kp B           &kp N      &kp M      &kp COMMA   &kp DOT    &kp FSLH
-                   &mt_ctrl_esc LCTRL ESC  &mo NAV     &kp SPACE       &mt_shift_ret RSHIFT RET    &mo SYM    &kp BSPC
+    &kp Q      &kp W      &kp E       &kp R       &kp T           &kp Y      &kp U      &kp I       &kp O      &kp P
+    &kp A      &kp S      &kp D       &kp F       &kp G           &kp H      &kp J      &kp K       &kp L      &kp SEMI
+    &kp Z      &kp X      &kp C       &kp V       &kp B           &kp N      &kp M      &kp COMMA   &kp DOT    &kp FSLH
+    &kp LGUI    &mt_layer NAV TAB      &mt_thumb LCTRL SPACE    &mt_thumb LSHFT RET     &mt_layer SYM BSPC      &kp DEL
     &kp C_MUTE &kp C_PP
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            // SỬA Ở ĐÂY: Dùng scroll_encoder
+            sensor-bindings = <&scroll_encoder &scroll_encoder>;
         };
 
-/*
- * LAYER 1: NAV
- */
         nav_layer {
             display-name = "Nav";
             bindings = <
@@ -79,12 +80,9 @@
                           &trans      &trans      &trans          &trans     &trans     &kp DEL
     &trans &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_BRI_UP C_BRI_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
-/*
- * LAYER 2: SYM
- */
         sym_layer {
             display-name = "Sym";
             bindings = <
@@ -94,19 +92,16 @@
                           &trans      &trans      &trans          &trans     &trans     &trans
     &trans &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            sensor-bindings = <&inc_dec_kp C_BRI_UP C_BRI_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
-/*
- * LAYER 3: ADJ
- */
         adj_layer {
             display-name = "Adj";
             bindings = <
-    &kp F1        &kp F2        &kp F3        &kp F4        &kp F5           &kp F6        &kp F7        &kp F8        &kp F9        &kp F10
-    &bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3     &out OUT_TOG  &trans        &trans        &trans        &kp F11
-    &sys_reset    &trans        &trans        &trans        &trans           &trans        &trans        &trans        &trans        &kp F12
-                                &trans        &trans        &trans           &trans        &trans        &trans
+    &kp F1        &kp F2        &kp F3        &kp F4        &kp F5           &kp F6           &kp F7           &kp F8           &kp F9           &kp F10
+    &bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3     &out OUT_TOG     &trans           &trans           &trans           &kp F11
+    &sys_reset    &trans        &trans        &trans        &trans           &trans           &trans           &trans           &trans           &kp F12
+                                &trans        &trans        &trans           &trans           &trans           &trans
     &trans &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
