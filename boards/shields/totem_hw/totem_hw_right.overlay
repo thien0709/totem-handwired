@@ -14,6 +14,11 @@
         ;
 };
 
+// Cấu hình nút Encoder bên PHẢI dùng chân P1.04
+&kscan_direct {
+    input-gpios = <&gpio1 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+};
+
 &right_encoder {
     status = "okay";
 };
