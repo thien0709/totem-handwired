@@ -45,7 +45,6 @@
     kscan_direct: kscan_direct {
         compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
-        // input-gpios sẽ được overlay điền vào
     };
 
     kscan0: kscan_composite {
