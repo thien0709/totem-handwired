@@ -14,7 +14,7 @@
         compatible = "zmk,combos";
         combo_esc {
             timeout-ms = <50>;
-            key-positions = <16 17>;
+            key-positions = <16 17>; 
             bindings = <&kp ESC>;
         };
     };
@@ -46,12 +46,20 @@
             bindings = <&mo>, <&kp>;
         };
 
-        // Scroll Encoder (Giữ lại để dùng nếu cần đổi ý sang cuộn chuột)
-        scroll_encoder: scroll_encoder {
+        // 1. Cuộn Dọc (Vertical Scroll)
+        scroll_vert: scroll_vert {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>; 
-            tap-ms = <40>;
+            tap-ms = <20>; // Tốc độ vừa phải
+        };
+
+        // 2. Cuộn Ngang (Horizontal Scroll) - Mới thêm
+        scroll_hor: scroll_hor {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>; 
+            tap-ms = <20>; 
         };
     };
 
@@ -68,10 +76,8 @@
     &kp C_MUTE &kp C_PP
             >;
             
-            // --- SỬA Ở ĐÂY ---
-            // Trái: Volume Up/Down
-            // Phải: Page Up/Down (Phím cứng)
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &scroll_encoder>;
+            // LAYER 0: Trái = Cuộn Dọc || Phải = Cuộn Ngang
+            sensor-bindings = <&scroll_vert &scroll_hor>;
         };
 
         nav_layer {
@@ -83,7 +89,9 @@
                           &trans      &trans      &trans          &trans     &trans     &kp DEL
     &trans &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
+            
+            // LAYER 1 (Mode 2): Trái = Volume || Phải = Độ sáng
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
         sym_layer {
@@ -95,7 +103,7 @@
                           &trans      &trans      &trans          &trans     &trans     &trans
     &trans &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_BRI_UP C_BRI_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
         adj_layer {
