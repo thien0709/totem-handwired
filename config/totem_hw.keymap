@@ -51,15 +51,15 @@
         scroll_vert: scroll_vert {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&mwh SCROLL_UP>, <&mwh SCROLL_DOWN>;
-            tap-ms = <30>;
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+            tap-ms = 20;
         };
         // 2. Cuộn Ngang (Horizontal Scroll) - Mới thêm
         scroll_hor: scroll_hor {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&mwh SCROLL_LEFT>, <&mwh SCROLL_RIGHT>;
-            tap-ms = <30>;
+            bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
+            tap-ms = 20;
         };
     };
 
