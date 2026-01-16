@@ -51,7 +51,7 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>; 
-            tap-ms = <10>;
+            tap-ms = <40>;
         };
     };
 
@@ -71,7 +71,7 @@
             // --- SỬA Ở ĐÂY ---
             // Trái: Volume Up/Down
             // Phải: Page Up/Down (Phím cứng)
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &scroll_encoder>;
         };
 
         nav_layer {
