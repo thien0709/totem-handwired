@@ -2,8 +2,6 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
-#include <dt-bindings/zmk/pointing.h> 
-#include <dt-bindings/zmk/mouse.h>
 
 #define BASE 0
 #define NAV  1
@@ -46,6 +44,20 @@
             quick-tap-ms = <150>;
             bindings = <&mo>, <&kp>;
         };
+
+        // Behavior cho scroll dọc (dùng Up/Down)
+        scroll_vert: scroll_vert {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&kp UP>, <&kp DOWN>;
+        };
+        
+        // Behavior cho scroll ngang (dùng Left/Right)
+        scroll_hor: scroll_hor {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&kp LEFT>, <&kp RIGHT>;
+        };
     };
 
     keymap {
@@ -61,8 +73,8 @@
     &kp C_MUTE &kp C_PP
             >;
             
-            // LAYER 0: Trái = Cuộn Dọc || Phải = Cuộn Ngang
-            sensor-bindings = <&inc_dec_msc SCRL_UP SCRL_DOWN &inc_dec_msc SCRL_LEFT SCRL_RIGHT>;
+            // LAYER 0: Trái = Up/Down || Phải = Left/Right
+            sensor-bindings = <&scroll_vert &scroll_hor>;
         };
 
         nav_layer {
@@ -89,7 +101,6 @@
     &trans &trans
             >;
             
-            // LAYER 2: Trái = Volume || Phải = Độ sáng
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
@@ -103,7 +114,6 @@
     &trans &trans
             >;
             
-            // LAYER 3: Trái = Volume || Phải = Độ sáng
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
     };
