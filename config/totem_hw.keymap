@@ -45,18 +45,49 @@
             bindings = <&mo>, <&kp>;
         };
 
-        // Behavior cho scroll dọc (dùng Up/Down)
+        // Scroll dọc - tối ưu hóa tốc độ
         scroll_vert: scroll_vert {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&kp UP>, <&kp DOWN>;
+            // Sử dụng Page Up/Down cho scroll nhanh hơn
+            bindings = <&kp PG_UP>, <&kp PG_DN>;
+            tap-ms = <5>;  // Giảm delay giữa các lần tap
         };
         
-        // Behavior cho scroll ngang (dùng Left/Right)
+        // Scroll ngang - tối ưu hóa
         scroll_hor: scroll_hor {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&kp LEFT>, <&kp RIGHT>;
+            tap-ms = <5>;
+        };
+
+        // Scroll dọc mượt hơn (dùng nhiều phím Up/Down liên tiếp)
+        scroll_smooth: scroll_smooth {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            // Gửi 3 lần UP/DOWN mỗi tick để mượt hơn
+            bindings = <&macro_scroll_up>, <&macro_scroll_down>;
+        };
+    };
+
+    macros {
+        // Macro scroll lên (gửi nhiều UP cùng lúc)
+        macro_scroll_up: macro_scroll_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp UP &kp UP &kp UP>;
+        };
+        
+        // Macro scroll xuống (gửi nhiều DOWN cùng lúc)
+        macro_scroll_down: macro_scroll_down {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp DOWN &kp DOWN &kp DOWN>;
         };
     };
 
@@ -73,8 +104,8 @@
     &kp C_MUTE &kp C_PP
             >;
             
-            // LAYER 0: Trái = Up/Down || Phải = Left/Right
-            sensor-bindings = <&scroll_vert &scroll_hor>;
+            // LAYER 0: Trái = Scroll mượt (3x UP/DOWN) || Phải = Left/Right nhanh
+            sensor-bindings = <&scroll_smooth &scroll_hor>;
         };
 
         nav_layer {
