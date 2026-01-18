@@ -46,21 +46,6 @@
             quick-tap-ms = <150>;
             bindings = <&mo>, <&kp>;
         };
-
-        // 1. Cuộn Dọc (Vertical Scroll)
-        scroll_vert: scroll_vert {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
-            tap-ms = <20>;
-        };
-        // 2. Cuộn Ngang (Horizontal Scroll) - Mới thêm
-        scroll_hor: scroll_hor {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
-            tap-ms = <20>;
-        };
     };
 
     keymap {
@@ -77,7 +62,7 @@
             >;
             
             // LAYER 0: Trái = Cuộn Dọc || Phải = Cuộn Ngang
-            sensor-bindings = <&scroll_vert &scroll_hor>;
+            sensor-bindings = <&inc_dec_msc SCRL_UP SCRL_DOWN &inc_dec_msc SCRL_LEFT SCRL_RIGHT>;
         };
 
         nav_layer {
@@ -90,7 +75,7 @@
     &trans &trans
             >;
             
-            // LAYER 1 (Mode 2): Trái = Volume || Phải = Độ sáng
+            // LAYER 1: Trái = Volume || Phải = Độ sáng
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
@@ -103,6 +88,8 @@
                           &trans      &trans      &trans          &trans     &trans     &trans
     &trans &trans
             >;
+            
+            // LAYER 2: Trái = Volume || Phải = Độ sáng
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
@@ -115,6 +102,8 @@
                                 &trans        &trans        &trans           &trans           &trans           &trans
     &trans &trans
             >;
+            
+            // LAYER 3: Trái = Volume || Phải = Độ sáng
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
     };
