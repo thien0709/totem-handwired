@@ -32,17 +32,15 @@
     };
 
     behaviors {
-        // Behavior: Giữ để đổi Layer, Nhấp để gõ phím (Space/Enter)
         lt_opt: layer_tap_optimized {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            flavor = "balanced"; // Dùng balanced để gõ nhanh không bị dính layer
+            flavor = "balanced";
             tapping-term-ms = <200>;
             quick-tap-ms = <175>;
             bindings = <&mo>, <&kp>;
         };
 
-        // Behavior: Giữ để ra Mod (Alt/Gui), Nhấp để gõ phím (Tab/Backspace)
         mt_opt: mod_tap_optimized {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -52,7 +50,6 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // --- SCROLL BEHAVIORS ---
         scroll_vert: scroll_vert {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
@@ -95,76 +92,49 @@
     keymap {
         compatible = "zmk,keymap";
 
-        /* BASE LAYER - HOÀN TOÀN KHÔNG TRÙNG LẶP
-         * ------------------------------------------------------------------------------------------------
-         * | Q | W | E | R | T |   | Y | U | I | O | P |
-         * | A | S | D | F | G |   | H | J | K | L | ; |
-         * | Z | X | C | V | B |   | N | M | , | . | / |
-         * ------------------------------------------------------------------------------------------------
-         * | LCTRL | GUI | TAB(ALT)| SPACE(NAV) |   | ENTER(SYM) | BSPC(ALT)| DEL | RSHIFT |
-         * ------------------------------------------------------------------------------------------------
-         */
         base_layer {
             display-name = "Base";
             bindings = <
     &kp Q      &kp W      &kp E       &kp R       &kp T           &kp Y      &kp U      &kp I       &kp O      &kp P
     &kp A      &kp S      &kp D       &kp F       &kp G           &kp H      &kp J      &kp K       &kp L      &kp SEMI
     &kp Z      &kp X      &kp C       &kp V       &kp B           &kp N      &kp M      &kp COMMA   &kp DOT    &kp FSLH
-    
-    // --- TỐI ƯU HÓA: KHÔNG CÒN TRÙNG CTRL/SHIFT ---
-    // Trái: Ctrl riêng, Gui riêng, Tab giữ ra Alt, Space giữ ra Nav
-    // Phải: Enter giữ ra Sym, Backspace giữ ra Alt, Del riêng, Shift riêng
     &kp LCTRL  &kp LGUI   &mt_opt LALT TAB    &lt_opt NAV SPACE       &lt_opt SYM RET      &mt_opt RALT BSPC    &kp DEL    &kp RSHFT
-    
-    &scroll_smooth &scroll_hor
             >;
+            // --- SỬA LỖI: Đặt sensor-bindings RA NGOÀI bindings ---
+            sensor-bindings = <&scroll_smooth &scroll_hor>;
         };
 
-        /* NAV LAYER - TẬN DỤNG SPACE
-         * Giữ Space (Tay trái) -> Tay phải điều hướng
-         */
         nav_layer {
             display-name = "Nav";
             bindings = <
     &trans     &kp N7     &kp N8      &kp N9      &kp N0          &kp PG_UP  &kp HOME   &kp UP      &kp END    &trans
     &trans     &kp N4     &kp N5      &kp N6      &trans          &kp PG_DN  &kp LEFT   &kp DOWN    &kp RIGHT  &kp COLON
     &trans     &kp N1     &kp N2      &kp N3      &kp DOT         &trans     &trans     &trans      &trans     &trans
-    
-    // Giữ Trans ở vị trí ngón cái đang giữ layer
     &trans     &trans     &trans      &trans                  &trans     &trans     &kp DEL     &trans
-    
-    &inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN
             >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
-        /* SYM LAYER - TẬN DỤNG ENTER
-         * Giữ Enter (Tay phải) -> Tay trái gõ ký tự
-         */
         sym_layer {
             display-name = "Sym";
             bindings = <
     &kp EXCL   &kp AT     &kp HASH    &kp DLLR    &kp PRCNT       &kp CARET  &kp AMPS   &kp STAR    &kp LPAR   &kp RPAR
     &kp TILDE  &kp MINUS  &kp PLUS    &kp EQUAL   &kp UNDER       &kp LBRC   &kp RBRC   &kp LBKT    &kp RBKT   &kp SQT
     &kp GRAVE  &trans     &trans      &trans      &trans          &kp LT     &kp GT     &trans      &trans     &kp DQT
-    
     &trans     &trans     &trans      &trans                  &trans     &trans     &trans      &trans
-    
-    &inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN
             >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
-        /* ADJ LAYER */
         adj_layer {
             display-name = "Adj";
             bindings = <
     &kp F1        &kp F2        &kp F3        &kp F4        &kp F5           &kp F6           &kp F7           &kp F8           &kp F9           &kp F10
     &bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3     &trans           &trans           &trans           &trans           &kp F11
     &sys_reset    &trans        &trans        &trans        &trans           &trans           &trans           &trans           &trans           &kp F12
-    
     &trans        &trans        &trans        &trans                  &trans     &trans     &trans      &trans
-    
-    &inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN
             >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
     };
 };
