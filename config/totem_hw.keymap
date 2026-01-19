@@ -1,0 +1,151 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define BASE 0
+#define NAV  1
+#define SYM  2
+#define ADJ  3
+
+/ {
+    combos {
+        compatible = "zmk,combos";
+        combo_esc {
+            timeout-ms = <50>;
+            key-positions = <16 17>; 
+            bindings = <&kp ESC>;
+        };
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        tri_layer {
+            if-layers = <NAV SYM>;
+            then-layer = <ADJ>;
+        };
+    };
+
+    behaviors {
+        mt_thumb: mt_thumb {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            bindings = <&kp>, <&kp>;
+        };
+        
+        mt_layer: mt_layer {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            bindings = <&mo>, <&kp>;
+        };
+
+        // Scroll dọc - tối ưu hóa tốc độ
+        scroll_vert: scroll_vert {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            // Sử dụng Page Up/Down cho scroll nhanh hơn
+            bindings = <&kp PG_UP>, <&kp PG_DN>;
+            tap-ms = <5>;  // Giảm delay giữa các lần tap
+        };
+        
+        // Scroll ngang - tối ưu hóa
+        scroll_hor: scroll_hor {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&kp LEFT>, <&kp RIGHT>;
+            tap-ms = <5>;
+        };
+
+        // Scroll dọc mượt hơn (dùng nhiều phím Up/Down liên tiếp)
+        scroll_smooth: scroll_smooth {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            // Gửi 3 lần UP/DOWN mỗi tick để mượt hơn
+            bindings = <&macro_scroll_up>, <&macro_scroll_down>;
+        };
+    };
+
+    macros {
+        // Macro scroll lên (gửi nhiều UP cùng lúc)
+        macro_scroll_up: macro_scroll_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp UP &kp UP &kp UP>;
+        };
+        
+        // Macro scroll xuống (gửi nhiều DOWN cùng lúc)
+        macro_scroll_down: macro_scroll_down {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp DOWN &kp DOWN &kp DOWN>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        base_layer {
+            display-name = "Base";
+            bindings = <
+    &kp Q      &kp W      &kp E       &kp R       &kp T           &kp Y      &kp U      &kp I       &kp O      &kp P
+    &kp A      &kp S      &kp D       &kp F       &kp G           &kp H      &kp J      &kp K       &kp L      &kp SEMI
+    &kp Z      &kp X      &kp C       &kp V       &kp B           &kp N      &kp M      &kp COMMA   &kp DOT    &kp FSLH
+    &kp LGUI    &mt_layer NAV TAB      &mt_thumb LCTRL SPACE    &mt_thumb LSHFT RET     &mt_layer SYM BSPC      &kp DEL
+    &kp C_MUTE &kp C_PP
+            >;
+            
+            // LAYER 0: Trái = Scroll mượt (3x UP/DOWN) || Phải = Left/Right nhanh
+            sensor-bindings = <&scroll_smooth &scroll_hor>;
+        };
+
+        nav_layer {
+            display-name = "Nav";
+            bindings = <
+    &kp N1     &kp N2     &kp N3      &kp N4      &kp N5          &kp N6     &kp N7     &kp N8      &kp N9     &kp N0
+    &trans     &trans     &trans      &trans      &trans          &kp LEFT   &kp DOWN   &kp UP      &kp RIGHT  &kp COLON
+    &trans     &trans     &trans      &trans      &trans          &kp HOME   &kp PG_DN  &kp PG_UP   &kp END    &kp BSLH
+                          &trans      &trans      &trans          &trans     &trans     &kp DEL
+    &trans &trans
+            >;
+            
+            // LAYER 1: Trái = Volume || Phải = Độ sáng
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+        };
+
+        sym_layer {
+            display-name = "Sym";
+            bindings = <
+    &kp EXCL   &kp AT     &kp HASH    &kp DLLR    &kp PRCNT       &kp CARET  &kp AMPS   &kp STAR    &kp LPAR   &kp RPAR
+    &kp TILDE  &kp MINUS  &kp PLUS    &kp EQUAL   &kp UNDER       &kp LBRC   &kp RBRC   &kp LBKT    &kp RBKT   &kp SQT
+    &kp GRAVE  &trans     &trans      &trans      &trans          &kp LT     &kp GT     &trans      &trans     &kp DQT
+                          &trans      &trans      &trans          &trans     &trans     &trans
+    &trans &trans
+            >;
+            
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+        };
+
+        adj_layer {
+            display-name = "Adj";
+            bindings = <
+    &kp F1        &kp F2        &kp F3        &kp F4        &kp F5           &kp F6           &kp F7           &kp F8           &kp F9           &kp F10
+    &bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3     &trans           &trans           &trans           &trans           &kp F11
+    &sys_reset    &trans        &trans        &trans        &trans           &trans           &trans           &trans           &trans           &kp F12
+                                &trans        &trans        &trans           &trans           &trans           &trans
+    &trans &trans
+            >;
+            
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+        };
+    };
+};
