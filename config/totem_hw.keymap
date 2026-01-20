@@ -2,13 +2,14 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
+/* ===================== LAYERS ===================== */
 #define BASE 0
 #define NAV  1
 #define SYM  2
 #define ADJ  3
 
 / {
-    /* ================= COMBOS ================= */
+    /* ===================== COMBOS ===================== */
     combos {
         compatible = "zmk,combos";
 
@@ -25,7 +26,7 @@
         };
     };
 
-    /* ================= CONDITIONAL LAYER ================= */
+    /* ===================== TRI LAYER ===================== */
     conditional_layers {
         compatible = "zmk,conditional-layers";
 
@@ -35,92 +36,110 @@
         };
     };
 
-    /* ================= BEHAVIORS ================= */
+    /* ===================== HOLD-TAP TUNING ===================== */
+    &lt {
+        flavor = "tap-preferred";
+        tapping-term-ms = <130>;
+        quick-tap-ms = <90>;
+        global-quick-tap;
+    };
+
+    /* ===================== ENCODERS ===================== */
     behaviors {
-
-        /* ---- Layer-tap: CHỈ dùng cho thumb ---- */
-        lt_thumb: layer_tap_thumb {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-
-            flavor = "tap-preferred";
-            tapping-term-ms = <150>;
-            quick-tap-ms = <110>;
-            global-quick-tap;
-
-            bindings = <&mo>, <&kp>;
-        };
-
-        /* ---- Vertical scroll ---- */
-        scroll_vert: scroll_vert {
+        scroll_vert {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&kp C_WH_UP>, <&kp C_WH_DOWN>;
         };
 
-        /* ---- Horizontal scroll ---- */
-        scroll_hor: scroll_hor {
+        scroll_hor {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&kp C_WH_LEFT>, <&kp C_WH_RIGHT>;
         };
     };
 
-    /* ================= KEYMAP ================= */
+    /* ===================== KEYMAP ===================== */
     keymap {
         compatible = "zmk,keymap";
 
-        /* ========== BASE ========== */
+        /* =================================================
+         * BASE LAYER
+         *
+         * Q  W  E  R  T      Y  U  I  O  P
+         * A  S  D  F  G      H  J  K  L  ;
+         * Z  X  C  V  B      N  M  ,  .  /
+         *
+         *      Ctrl Gui [NAV/Spc] [SYM/Ent]
+         *      Bspc Alt  Del       Shift
+         * ================================================= */
         base_layer {
             display-name = "Base";
 
             bindings = <
-    &kp Q      &kp W      &kp E      &kp R      &kp T        &kp Y      &kp U      &kp I      &kp O      &kp P
-    &kp A      &kp S      &kp D      &kp F      &kp G        &kp H      &kp J      &kp K      &kp L      &kp SEMI
-    &kp Z      &kp X      &kp C      &kp V      &kp B        &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH
+                &kp Q      &kp W      &kp E      &kp R      &kp T
+                &kp A      &kp S      &kp D      &kp F      &kp G
+                &kp Z      &kp X      &kp C      &kp V      &kp B
 
-    /* Thumb – KHÔNG mod-tap */
-    &kp LCTRL  &kp LGUI   &lt_thumb NAV SPACE   &lt_thumb SYM RET
-    &kp BSPC   &kp RALT   &kp DEL    &kp RSHFT
+                &kp Y      &kp U      &kp I      &kp O      &kp P
+                &kp H      &kp J      &kp K      &kp L      &kp SEMI
+                &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH
+
+                &kp LCTRL  &kp LGUI   &lt NAV SPACE   &lt SYM RET
+                &kp BSPC   &kp RALT   &kp DEL        &kp RSHFT
             >;
 
-            /* Encoder: scroll mượt */
             sensor-bindings = <&scroll_vert &scroll_hor>;
         };
 
-        /* ========== NAV ========== */
+        /* ===================== NAV ===================== */
         nav_layer {
             display-name = "Nav";
 
             bindings = <
-    &trans     &kp N7     &kp N8     &kp N9     &kp N0       &kp PG_UP  &kp HOME  &kp UP    &kp END   &trans
-    &trans     &kp N4     &kp N5     &kp N6     &trans       &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT &kp COLON
-    &trans     &kp N1     &kp N2     &kp N3     &kp DOT      &trans     &trans    &trans    &trans    &trans
-    &trans     &trans     &trans     &trans                &trans     &trans    &kp DEL   &trans
+                &trans &kp N7 &kp N8 &kp N9 &kp N0
+                &trans &kp N4 &kp N5 &kp N6 &trans
+                &trans &kp N1 &kp N2 &kp N3 &kp DOT
+
+                &kp PG_UP &kp HOME &kp UP   &kp END &trans
+                &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &trans
+                &trans &trans &trans &trans &trans
+
+                &trans &trans &trans &trans
             >;
         };
 
-        /* ========== SYM ========== */
+        /* ===================== SYMBOL ===================== */
         sym_layer {
             display-name = "Sym";
 
             bindings = <
-    &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT    &kp CARET  &kp AMPS   &kp STAR  &kp LPAR  &kp RPAR
-    &kp TILDE  &kp MINUS  &kp PLUS   &kp EQUAL  &kp UNDER    &kp LBRC   &kp RBRC   &kp LBKT  &kp RBKT  &kp SQT
-    &kp GRAVE  &trans     &trans     &trans     &trans       &kp LT     &kp GT     &trans    &trans    &kp DQT
-    &trans     &trans     &trans     &trans                &trans     &trans     &trans    &trans
+                &kp EXCL &kp AT   &kp HASH &kp DLLR &kp PRCNT
+                &kp TILDE &kp MINUS &kp PLUS &kp EQUAL &kp UNDER
+                &kp GRAVE &trans   &trans   &trans   &trans
+
+                &kp CARET &kp AMPS &kp STAR &kp LPAR &kp RPAR
+                &kp LBRC  &kp RBRC &kp LBKT &kp RBKT &kp SQT
+                &kp LT    &kp GT   &trans   &trans   &kp DQT
+
+                &trans &trans &trans &trans
             >;
         };
 
-        /* ========== ADJ ========== */
+        /* ===================== ADJUST ===================== */
         adj_layer {
             display-name = "Adj";
 
             bindings = <
-    &kp F1     &kp F2     &kp F3     &kp F4     &kp F5       &kp F6     &kp F7     &kp F8     &kp F9     &kp F10
-    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &trans &trans &trans &trans &kp F11
-    &sys_reset &trans     &trans     &trans     &trans       &trans     &trans     &trans     &trans     &kp F12
-    &trans     &trans     &trans     &trans                &trans     &trans     &trans     &trans
+                &kp F1 &kp F2 &kp F3 &kp F4 &kp F5
+                &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3
+                &sys_reset &trans &trans &trans &trans
+
+                &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
+                &trans &trans &trans &trans &kp F11
+                &trans &trans &trans &trans &kp F12
+
+                &trans &trans &trans &trans
             >;
         };
     };
