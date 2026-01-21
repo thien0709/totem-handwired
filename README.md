@@ -3,8 +3,14 @@
 A custom hand-wired build of the **Totem** split ergonomic keyboard. This project leverages the **Supermini NRF52840** for wireless connectivity and features **Horizontal Roller Encoders** for seamless navigation.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6ea796ca-0fb8-4ace-aada-1f717dcd3d04" width="45%" />
-  <img src="https://github.com/user-attachments/assets/13ee022c-3d65-4a6f-8fdc-f7fd5ac9918a" width="45%" />
+  <img src="https://github.com/user-attachments/assets/c85db919-c958-4709-ad34-945435c07bfc" width="100%" alt="Totem Keyboard Main View" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6ea796ca-0fb8-4ace-aada-1f717dcd3d04" width="22%" />
+  <img src="https://github.com/user-attachments/assets/13ee022c-3d65-4a6f-8fdc-f7fd5ac9918a" width="22%" />
+  <img src="https://github.com/user-attachments/assets/0d38912d-581d-4dac-b306-2aa4fa8da1a1" width="22%" />
+  <img src="https://github.com/user-attachments/assets/1a5d2c52-6d3c-4d7b-b08b-d8e7c30b010f" width="22%" />
 </p>
 
 ## ✨ Features
@@ -72,7 +78,91 @@ R3  P1.15 ───┼──────┼────────────�
 Direct thumb key:
 P1.04 ──[SW]── GND
 ```
+---
+## Layout Layers
 
+### 0. Base Layer
+Standard QWERTY layout with Home Row Mods on thumbs and outer pinky keys for modifiers.
+
+```text
+       ╭───╮╭───╮╭───╮╭───╮╭───╮      ╭───╮╭───╮╭───╮╭───╮╭───╮
+       │ Q ││ W ││ E ││ R ││ T │      │ Y ││ U ││ I ││ O ││ P │
+       ╰───╯╰───╯╰───╯╰───╯╰───╯      ╰───╯╰───╯╰───╯╰───╯╰───╯
+       ╭───╮╭───╮╭───╮╭───╮╭───╮      ╭───╮╭───╮╭───╮╭───╮╭───╮
+       │ A ││ S ││ D ││ F ││ G │      │ H ││ J ││ K ││ L ││ ; │
+       ╰───╯╰───╯╰───╯╰───╯╰───╯      ╰───╯╰───╯╰───╯╰───╯╰───╯
+   ╭───╮╭───╮╭───╮╭───╮╭───╮╭───╮    ╭───╮╭───╮╭───╮╭───╮╭───╮╭───╮
+   │CTL││ Z ││ X ││ C ││ V ││ B │    │ N ││ M ││ , ││ . ││ / ││SFT│
+   ╰───╯╰───╯╰───╯╰───╯╰───╯╰───╯    ╰───╯╰───╯╰───╯╰───╯╰───╯╰───╯
+                   ╭───╮╭───╮╭───╮  ╭───╮╭───╮╭───╮
+                   │GUI││TAB││SPC│  │ENT││BSP││DEL│
+                   ╰───╯╰─▲─╯╰─▲─╯  ╰─▲─╯╰─▲─╯╰───╯
+                          │    │      │    │
+                      (Hold) (Hold) (Hold)(Hold)
+                       ALT    NAV    SYM   ALT
+```
+
+### 1. Nav Layer (Hold Space)
+Focused on Numpad (Left) and Navigation/Editing (Right).
+
+```text
+       ╭───╮╭───╮╭───╮╭───╮╭───╮      ╭───╮╭───╮╭───╮╭───╮╭───╮
+       │   ││ 7 ││ 8 ││ 9 ││ 0 │      │PgU││Hom││ ↑ ││End││   │
+       ╰───╯╰───╯╰───╯╰───╯╰───╯      ╰───╯╰───╯╰───╯╰───╯╰───╯
+       ╭───╮╭───╮╭───╮╭───╮╭───╮      ╭───╮╭───╮╭───╮╭───╮╭───╮
+       │   ││ 4 ││ 5 ││ 6 ││   │      │PgD││ ← ││ ↓ ││ → ││ : │
+       ╰───╯╰───╯╰───╯╰───╯╰───╯      ╰───╯╰───╯╰───╯╰───╯╰───╯
+   ╭───╮╭───╮╭───╮╭───╮╭───╮╭───╮    ╭───╮╭───╮╭───╮╭───╮╭───╮╭───╮
+   │   ││   ││ 1 ││ 2 ││ 3 ││ . │    │   ││   ││   ││   ││   ││   │
+   ╰───╯╰───╯╰───╯╰───╯╰───╯╰───╯    ╰───╯╰───╯╰───╯╰───╯╰───╯╰───╯
+                   ╭───╮╭───╮╭───╮  ╭───╮╭───╮╭───╮
+                   │   ││   ││   │  │   ││   ││DEL│
+                   ╰───╯╰───╯╰───╯  ╰───╯╰───╯╰───╯
+```
+
+### 2. Sym Layer (Hold Enter)
+Programming symbols organized for easy access (Left: Punctuation, Right: Brackets/Math).
+
+```text
+       ╭───╮╭───╮╭───╮╭───╮╭───╮      ╭───╮╭───╮╭───╮╭───╮╭───╮
+       │ ! ││ @ ││ # ││ $ ││ % │      │ ^ ││ & ││ * ││ ( ││ ) │
+       ╰───╯╰───╯╰───╯╰───╯╰───╯      ╰───╯╰───╯╰───╯╰───╯╰───╯
+       ╭───╮╭───╮╭───╮╭───╮╭───╮      ╭───╮╭───╮╭───╮╭───╮╭───╮
+       │ ~ ││ - ││ + ││ = ││ _ │      │ { ││ } ││ [ ││ ] ││ ' │
+       ╰───╯╰───╯╰───╯╰───╯╰───╯      ╰───╯╰───╯╰───╯╰───╯╰───╯
+   ╭───╮╭───╮╭───╮╭───╮╭───╮╭───╮    ╭───╮╭───╮╭───╮╭───╮╭───╮╭───╮
+   │ ` ││   ││   ││   ││   ││   │    │ < ││ > ││   ││   ││ " ││   │
+   ╰───╯╰───╯╰───╯╰───╯╰───╯╰───╯    ╰───╯╰───╯╰───╯╰───╯╰───╯╰───╯
+                   ╭───╮╭───╮╭───╮  ╭───╮╭───╮╭───╮
+                   │   ││   ││   │  │   ││   ││   │
+                   ╰───╯╰───╯╰───╯  ╰───╯╰───╯╰───╯
+```
+
+### 3. Adj Layer (Hold Space + Enter)
+System controls, Function keys, and Bluetooth management.
+
+```text
+       ╭───╮╭───╮╭───╮╭───╮╭───╮      ╭───╮╭───╮╭───╮╭───╮╭───╮
+       │ F1││ F2││ F3││ F4││ F5│      │ F6││ F7││ F8││ F9││F10│
+       ╰───╯╰───╯╰───╯╰───╯╰───╯      ╰───╯╰───╯╰───╯╰───╯╰───╯
+       ╭───╮╭───╮╭───╮╭───╮╭───╮      ╭───╮╭───╮╭───╮╭───╮╭───╮
+       │CLR││BT0││BT1││BT2││BT3│      │   ││   ││   ││   ││F11│
+       ╰───╯╰───╯╰───╯╰───╯╰───╯      ╰───╯╰───╯╰───╯╰───╯╰───╯
+   ╭───╮╭───╮╭───╮╭───╮╭───╮╭───╮    ╭───╮╭───╮╭───╮╭───╮╭───╮╭───╮
+   │RST││   ││   ││   ││   ││   │    │   ││   ││   ││   ││F12││   │
+   ╰───╯╰───╯╰───╯╰───╯╰───╯╰───╯    ╰───╯╰───╯╰───╯╰───╯╰───╯╰───╯
+                   ╭───╮╭───╮╭───╮  ╭───╮╭───╮╭───╮
+                   │   ││   ││   │  │   ││   ││   │
+                   ╰───╯╰───╯╰───╯  ╰───╯╰───╯╰───╯
+```
+
+## Combos
+
+Simultaneous key presses for quick actions:
+
+* **ESC**: `Q` + `W`
+* **DEL**: `O` + `P` (Alternative to Thumb Delete)
+* **TOGGLE NAV (Num Lock)**: Space + Enter (Switch to Nav layer permanently for fast number entry).
 ---
 
 **Notes**

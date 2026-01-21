@@ -3,130 +3,138 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 
-/* ===================== LAYERS ===================== */
 #define BASE 0
 #define NAV  1
 #define SYM  2
 #define ADJ  3
 
 / {
-    /* ===================== COMBOS ===================== */
     combos {
         compatible = "zmk,combos";
-
         combo_esc {
             timeout-ms = <50>;
-            key-positions = <0 1>; /* Q + W */
+            key-positions = <0 1>; 
             bindings = <&kp ESC>;
         };
-
         combo_del {
             timeout-ms = <50>;
-            key-positions = <8 9>; /* O + P */
+            key-positions = <8 9>;
             bindings = <&kp DEL>;
         };
     };
 
-    /* ===================== TRI LAYER (NAV + SYM = ADJ) ===================== */
     conditional_layers {
         compatible = "zmk,conditional-layers";
-
         tri_layer {
             if-layers = <NAV SYM>;
             then-layer = <ADJ>;
         };
     };
 
-    /* ===================== BEHAVIORS TUNING ===================== */
     behaviors {
-        /* Tối ưu hóa phím giữ layer (Layer Tap) */
-        lt: layer_tap {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced"; /* Giúp cân bằng giữa gõ nhanh và giữ phím */
-            tapping-term-ms = <200>; /* Tăng lên 200ms để tránh bị nhảy layer ngoài ý muốn */
-            quick-tap-ms = <175>; /* Cho phép gõ lặp lại phím nhanh */
-            require-prior-idle-ms = <150>; /* Ngăn kích hoạt nhầm khi đang gõ phím khác */
-            bindings = <&mo>, <&kp>;
-        };
-
-        /* Tối ưu hóa phím mod (Shift/Ctrl/Alt Tap) - Nếu bạn dùng Mod-Tap sau này */
-        mt: mod_tap {
+        lt_opt: layer_tap_optimized {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <200>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
+            bindings = <&mo>, <&kp>;
+        };
+
+        mt_opt: mod_tap_optimized {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
             bindings = <&kp>, <&kp>;
         };
 
         scroll_vert: scroll_vert {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&kp C_WH_UP>, <&kp C_WH_DOWN>;
+            bindings = <&kp PG_UP>, <&kp PG_DN>;
+            tap-ms = <5>; 
         };
-
+        
         scroll_hor: scroll_hor {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&kp C_WH_LEFT>, <&kp C_WH_RIGHT>;
+            bindings = <&kp LEFT>, <&kp RIGHT>;
+            tap-ms = <5>;
+        };
+
+        scroll_smooth: scroll_smooth {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&macro_scroll_up>, <&macro_scroll_down>;
         };
     };
 
-    /* ===================== KEYMAP ===================== */
+    macros {
+        macro_scroll_up: macro_scroll_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp UP &kp UP &kp UP>;
+        };
+        
+        macro_scroll_down: macro_scroll_down {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <&kp DOWN &kp DOWN &kp DOWN>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
-        /* * Base Layer: 38 Keys Total
-         * 10 keys top + 10 keys mid + 10 keys bot + 8 thumb keys
-         */
         base_layer {
             display-name = "Base";
             bindings = <
-                &kp Q      &kp W      &kp E      &kp R      &kp T          &kp Y      &kp U      &kp I      &kp O      &kp P
-                &kp A      &kp S      &kp D      &kp F      &kp G          &kp H      &kp J      &kp K      &kp L      &kp SEMI
-                &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH
-                                      &kp LCTRL  &kp LGUI   &lt NAV SPACE  &lt SYM RET
-                                      &kp BSPC   &kp RALT   &kp DEL        &kp RSHFT
+    &kp Q      &kp W      &kp E       &kp R       &kp T           &kp Y      &kp U      &kp I       &kp O      &kp P
+    &kp A      &kp S      &kp D       &kp F       &kp G           &kp H      &kp J      &kp K       &kp L      &kp SEMI
+    &kp Z      &kp X      &kp C       &kp V       &kp B           &kp N      &kp M      &kp COMMA   &kp DOT    &kp FSLH
+    &kp LCTRL  &kp LGUI   &mt_opt LALT TAB    &lt_opt NAV SPACE       &lt_opt SYM RET      &mt_opt RALT BSPC    &kp DEL    &kp RSHFT
             >;
-            sensor-bindings = <&scroll_vert &scroll_hor>;
+            // --- SỬA LỖI: Đặt sensor-bindings RA NGOÀI bindings ---
+            sensor-bindings = <&scroll_smooth &scroll_hor>;
         };
 
-        /* ===================== NAV ===================== */
         nav_layer {
             display-name = "Nav";
             bindings = <
-                &trans     &kp N7     &kp N8     &kp N9     &kp N0         &trans     &trans     &trans     &trans     &trans
-                &trans     &kp N4     &kp N5     &kp N6     &trans         &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &trans
-                &trans     &kp N1     &kp N2     &kp N3     &kp DOT        &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &trans
-                                      &trans     &trans     &trans         &trans
-                                      &trans     &trans     &trans         &trans
+    &trans     &kp N7     &kp N8      &kp N9      &kp N0          &kp PG_UP  &kp HOME   &kp UP      &kp END    &trans
+    &trans     &kp N4     &kp N5      &kp N6      &trans          &kp PG_DN  &kp LEFT   &kp DOWN    &kp RIGHT  &kp COLON
+    &trans     &kp N1     &kp N2      &kp N3      &kp DOT         &trans     &trans     &trans      &trans     &trans
+    &trans     &trans     &trans      &trans                  &trans     &trans     &kp DEL     &trans
             >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
-        /* ===================== SYMBOL ===================== */
         sym_layer {
             display-name = "Sym";
             bindings = <
-                &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT      &kp CARET  &kp AMPS   &kp STAR   &kp LPAR   &kp RPAR
-                &kp TILDE  &kp MINUS  &kp PLUS   &kp EQUAL  &kp UNDER      &kp LBRC   &kp RBRC   &kp LBKT   &kp RBKT   &kp SQT
-                &kp GRAVE  &trans     &trans     &trans     &trans         &kp LT     &kp GT     &trans     &trans     &kp DQT
-                                      &trans     &trans     &trans         &trans
-                                      &trans     &trans     &trans         &trans
+    &kp EXCL   &kp AT     &kp HASH    &kp DLLR    &kp PRCNT       &kp CARET  &kp AMPS   &kp STAR    &kp LPAR   &kp RPAR
+    &kp TILDE  &kp MINUS  &kp PLUS    &kp EQUAL   &kp UNDER       &kp LBRC   &kp RBRC   &kp LBKT    &kp RBKT   &kp SQT
+    &kp GRAVE  &trans     &trans      &trans      &trans          &kp LT     &kp GT     &trans      &trans     &kp DQT
+    &trans     &trans     &trans      &trans                  &trans     &trans     &trans      &trans
             >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
-        /* ===================== ADJUST ===================== */
         adj_layer {
             display-name = "Adj";
             bindings = <
-                &kp F1        &kp F2        &kp F3        &kp F4        &kp F5          &kp F6     &kp F7     &kp F8     &kp F9     &kp F10
-                &bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3    &trans     &trans     &trans     &trans     &kp F11
-                &sys_reset    &trans        &trans        &trans        &trans          &trans     &trans     &trans     &trans     &kp F12
-                                            &trans        &trans        &trans          &trans
-                                            &trans        &trans        &trans          &trans
+    &kp F1        &kp F2        &kp F3        &kp F4        &kp F5           &kp F6           &kp F7           &kp F8           &kp F9           &kp F10
+    &bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3     &trans           &trans           &trans           &trans           &kp F11
+    &sys_reset    &trans        &trans        &trans        &trans           &trans           &trans           &trans           &trans           &kp F12
+    &trans        &trans        &trans        &trans                  &trans     &trans     &trans      &trans
             >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
     };
 };
