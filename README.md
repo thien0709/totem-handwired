@@ -3,7 +3,7 @@
 A custom hand-wired build of the **Totem** split ergonomic keyboard. This project leverages the **Supermini NRF52840** for wireless connectivity and features **Horizontal Roller Encoders** for seamless navigation.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c85db919-c958-4709-ad34-945435c07bfc" width="100%" alt="Totem Keyboard Main View" />
+  <img src="https://github.com/user-attachments/assets/c50f8c00-dadd-4662-810c-7f6dee25dd39" width="100%" alt="Totem Keyboard Main View" />
   <br>
   <br>
   <img src="https://github.com/user-attachments/assets/53a66e0b-e28d-438d-ba79-a15c3db18404" width="49%" alt="Totem Keyboard Detail 1" />
