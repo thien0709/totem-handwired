@@ -15,8 +15,7 @@
 };
 
 &kscan_direct {
-    // 5 chân tín hiệu của Công tắc 5 hướng. 
-    // Chân thứ 6 (chân COM) của công tắc bắt buộc hàn vào GND.
+    // 5 chân tín hiệu của Công tắc 5 hướng.
     input-gpios 
         = <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 111
         , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 010
