@@ -15,12 +15,11 @@
 };
 
 &kscan_direct {
-    // 5 chân tín hiệu của Công tắc 5 hướng.
     input-gpios 
-        = <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 111
-        , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 010
-        , <&gpio0 9  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 009
-        , <&gpio1 0  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 100
-        , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 011
+        = <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 111 (Giữ nguyên)
+        , <&gpio1 6  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // MỚI: Đã đổi sang 106
+        , <&gpio1 4  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // MỚI: Đã đổi sang 104
+        , <&gpio1 0  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 100 (Giữ nguyên)
+        , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 011 (Giữ nguyên)
         ;
 };
