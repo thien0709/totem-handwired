@@ -99,7 +99,7 @@
     &kp A      &kp S      &kp D       &kp F       &kp G           &kp H      &kp J      &kp K       &kp L      &kp SEMI
     &kp Z      &kp X      &kp C       &kp V       &kp B           &kp N      &kp M      &kp COMMA   &kp DOT    &kp FSLH
     &kp LCTRL  &kp LGUI   &mt_opt LALT TAB    &lt_opt NAV SPACE       &lt_opt SYM RET      &mt_opt RALT BSPC    &kp DEL    &kp RSHFT
-    &kp K_MUTE                                                    &kp UP     &kp DOWN   &kp LEFT    &kp RIGHT  &kp RET
+    &kp K_MUTE                                                    &kp UP     &kp LEFT   &kp DOWN    &kp RET    &kp RIGHT
             >;
             sensor-bindings = <&scroll_smooth>;
         };
