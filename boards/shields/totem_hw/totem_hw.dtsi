@@ -6,7 +6,6 @@
         zmk,matrix-transform = &default_transform;
     };
 
-    // Chỉ còn Encoder Trái
     left_encoder: encoder_left {
         compatible = "alps,ec11";
         steps = <24>;
@@ -59,7 +58,7 @@
             RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4)    RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9)
             RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)    RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9)
             
-            // Hàng Extra: Nút Encoder trái (RC4,0) và 5 nút công tắc phải (RC4,5 -> 4,9)
+            // Hàng phụ: Nút Encoder trái (RC4,0) và 5 nút công tắc phải (RC4,5 -> 4,9)
             RC(4,0)                                    RC(4,5) RC(4,6) RC(4,7) RC(4,8) RC(4,9)
         >;
     };
