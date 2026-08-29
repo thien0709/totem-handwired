@@ -1,5 +1,10 @@
 #include "totem_hw.dtsi"
 
+/*
+ * Right half
+ * Matrix columns 0-4 của half này được transform
+ * sang columns 5-9 của toàn bộ Totem.
+ */
 &default_transform {
     col-offset = <5>;
 };
@@ -8,18 +13,27 @@
     col-gpios
         = <&gpio0 31 GPIO_ACTIVE_HIGH>
         , <&gpio0 29 GPIO_ACTIVE_HIGH>
-        , <&gpio0 2  GPIO_ACTIVE_HIGH> 
-        , <&gpio1 15 GPIO_ACTIVE_HIGH> 
-        , <&gpio1 13 GPIO_ACTIVE_HIGH> 
+        , <&gpio0 2  GPIO_ACTIVE_HIGH>
+        , <&gpio1 15 GPIO_ACTIVE_HIGH>
+        , <&gpio1 13 GPIO_ACTIVE_HIGH>
         ;
 };
 
+/*
+ * 5-way switch
+ *
+ * 111 -> UP
+ * 010 -> DOWN
+ * 009 -> LEFT
+ * 100 -> RIGHT
+ * 011 -> RET
+ */
 &kscan_direct {
-    input-gpios 
-        = <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 111
-        , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 010
-        , <&gpio0 9  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 009
-        , <&gpio1 0  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 100
-        , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Chân 011
+    input-gpios
+        = <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 111
+        , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 010
+        , <&gpio0 9  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 009
+        , <&gpio1 0  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 100
+        , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 011
         ;
 };
