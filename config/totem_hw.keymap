@@ -99,9 +99,9 @@
     &kp A      &kp S      &kp D       &kp F       &kp G           &kp H      &kp J      &kp K       &kp L      &kp SEMI
     &kp Z      &kp X      &kp C       &kp V       &kp B           &kp N      &kp M      &kp COMMA   &kp DOT    &kp FSLH
     &kp LCTRL  &kp LGUI   &mt_opt LALT TAB    &lt_opt NAV SPACE       &lt_opt SYM RET      &mt_opt RALT BSPC    &kp DEL    &kp RSHFT
+    &kp K_MUTE                                                    &kp UP     &kp DOWN   &kp LEFT    &kp RIGHT  &kp RET
             >;
-            // --- SỬA LỖI: Đặt sensor-bindings RA NGOÀI bindings ---
-            sensor-bindings = <&scroll_smooth &scroll_hor>;
+            sensor-bindings = <&scroll_smooth>;
         };
 
         nav_layer {
@@ -111,8 +111,9 @@
     &trans     &kp N4     &kp N5      &kp N6      &trans          &kp PG_DN  &kp LEFT   &kp DOWN    &kp RIGHT  &kp COLON
     &trans     &kp N1     &kp N2      &kp N3      &kp DOT         &trans     &trans     &trans      &trans     &trans
     &trans     &trans     &trans      &trans                  &trans     &trans     &kp DEL     &trans
+    &trans                                                        &trans     &trans     &trans      &trans     &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         sym_layer {
@@ -122,8 +123,9 @@
     &kp TILDE  &kp MINUS  &kp PLUS    &kp EQUAL   &kp UNDER       &kp LBRC   &kp RBRC   &kp LBKT    &kp RBKT   &kp SQT
     &kp GRAVE  &trans     &trans      &trans      &trans          &kp LT     &kp GT     &trans      &trans     &kp DQT
     &trans     &trans     &trans      &trans                  &trans     &trans     &trans      &trans
+    &trans                                                        &trans     &trans     &trans      &trans     &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         adj_layer {
@@ -133,8 +135,9 @@
     &bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3     &trans           &trans           &trans           &trans           &kp F11
     &sys_reset    &trans        &trans        &trans        &trans           &trans           &trans           &trans           &trans           &kp F12
     &trans        &trans        &trans        &trans                  &trans     &trans     &trans      &trans
+    &trans                                                        &trans     &trans     &trans      &trans     &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
