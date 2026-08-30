@@ -11,17 +11,32 @@
 / {
     combos {
         compatible = "zmk,combos";
-        // Combo bấm Q + W ra ESC (giữ nguyên phòng khi cần thiết)
+        
+        // ESC: Q + W
         combo_esc {
             timeout-ms = <50>;
             key-positions = <0 1>; 
             bindings = <&kp ESC>;
         };
+
+        // DEL: O + P
+        combo_del {
+            timeout-ms = <50>;
+            key-positions = <8 9>; 
+            bindings = <&kp DEL>;
+        };
+
+        // TOGGLE NAV: Nhấn cùng lúc Space + Enter để khóa layer Nav (Num Lock)
+        combo_tog_nav {
+            timeout-ms = <50>;
+            key-positions = <34 35>; // Vị trí của Space (34) và Enter (35)
+            bindings = <&tog NAV>;
+        };
     };
 
-    // Tự động chuyển sang ADJ layer nếu giữ cả phím NAV (Space) và SYM (Enter)
     conditional_layers {
         compatible = "zmk,conditional-layers";
+        // Hold Space + Enter -> ADJ Layer
         tri_layer {
             if-layers = <NAV SYM>;
             then-layer = <ADJ>;
@@ -29,7 +44,6 @@
     };
 
     behaviors {
-        // Tối ưu cho phím vừa giữ vừa bấm (Dành cho Space, Enter)
         lt_opt: layer_tap_optimized {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -39,7 +53,6 @@
             bindings = <&mo>, <&kp>;
         };
 
-        // Tối ưu cho phím Mod (Dành cho ALT/TAB, ALT/BSPC)
         mt_opt: mod_tap_optimized {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -49,7 +62,6 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // Cấu hình cuộn mượt cho Roller Encoder
         scroll_smooth: scroll_smooth {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
@@ -65,7 +77,6 @@
             tap-ms = <0>;
             bindings = <&kp UP &kp UP &kp UP>;
         };
-        
         macro_scroll_down: macro_scroll_down {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -81,42 +92,43 @@
         base_layer {
             display-name = "Base";
             bindings = <
-    // ROW 1
-    &kp Q      &kp W      &kp E       &kp R       &kp T            &kp Y       &kp U      &kp I      &kp O      &kp P
-    // ROW 2
-    &kp A      &kp S      &kp D       &kp F       &kp G            &kp H       &kp J      &kp K      &kp L      &kp SEMI
-    // ROW 3
-    &kp Z      &kp X      &kp C       &kp V       &kp B            &kp N       &kp M      &kp COMMA  &kp DOT    &kp FSLH
-    // ROW 4: Phím sườn ngón út (LCTRL) + 3 ngón cái TRÁI  ||  3 ngón cái PHẢI + Phím sườn ngón út (RSHFT)
-    &kp LCTRL  &kp LGUI   &mt_opt LALT TAB  &lt_opt NAV SPACE      &lt_opt SYM RET &mt_opt RALT BSPC &kp DEL &kp RSHFT
-    // ROW 5: Ấn Roller Encoder (Trái)  ||  Cụm 5 hướng (Phải: Lên, Trái, Xuống, Giữa, Phải)
-    &kp C_MUTE                                                                 &kp UP     &kp LEFT   &kp DOWN   &kp RET    &kp RIGHT
+    // ╭───╮╭───╮╭───╮╭───╮╭───╮                              ╭───╮╭───╮╭───╮╭───╮╭───╮
+       &kp Q &kp W &kp E &kp R &kp T                          &kp Y &kp U &kp I &kp O &kp P
+    // ╭───╮╭───╮╭───╮╭───╮╭───╮                              ╭───╮╭───╮╭───╮╭───╮╭───╮
+       &kp A &kp S &kp D &kp F &kp G                          &kp H &kp J &kp K &kp L &kp SEMI
+    // ╭───╮╭───╮╭───╮╭───╮╭───╮╭───╮                        ╭───╮╭───╮╭───╮╭───╮╭───╮╭───╮
+    &kp LCTRL &kp Z &kp X &kp C &kp V &kp B                &kp N &kp M &kp COMMA &kp DOT &kp FSLH &kp RSHFT
+    //             ╭───╮╭───╮╭───╮                              ╭───╮╭───╮╭───╮
+              &kp LGUI &mt_opt LALT TAB &lt_opt NAV SPACE    &lt_opt SYM RET &mt_opt LALT BSPC &kp DEL
+    
+    // [Roller Encoder Trái]                                 [Công tắc 5 hướng Phải]
+       &kp C_MUTE                                             &kp UP &kp LEFT &kp DOWN &kp RET &kp RIGHT
             >;
-            // Xoay Encoder: Tăng giảm âm lượng
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         nav_layer {
             display-name = "Nav";
             bindings = <
-    &trans     &kp N7     &kp N8     &kp N9      &kp N0           &kp PG_UP  &kp HOME   &kp UP     &kp END    &trans
-    &trans     &kp N4     &kp N5     &kp N6      &trans           &kp PG_DN  &kp LEFT   &kp DOWN   &kp RIGHT  &kp COLON
-    &trans     &trans     &kp N1     &kp N2      &kp N3           &kp DOT    &trans     &trans     &trans     &trans
-    &trans     &trans     &trans     &trans                       &trans     &trans     &kp DEL    &trans
-    &kp C_PP                                                                 &trans     &trans     &trans     &trans     &trans
+       &trans &kp N7 &kp N8 &kp N9 &kp N0                     &kp PG_UP &kp HOME &kp UP   &kp END   &trans
+       &trans &kp N4 &kp N5 &kp N6 &trans                     &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &kp COLON
+       &trans &trans &kp N1 &kp N2 &kp N3 &kp DOT             &trans    &trans   &trans   &trans    &trans &trans
+                     &trans &trans &trans                     &trans    &trans   &kp DEL
+       
+       &kp C_PP                                               &trans &trans &trans &trans &trans
             >;
-            // Xoay Encoder: Cuộn mượt (Scroll)
             sensor-bindings = <&scroll_smooth>;
         };
 
         sym_layer {
             display-name = "Sym";
             bindings = <
-    &kp EXCL   &kp AT     &kp HASH   &kp DLLR    &kp PRCNT        &kp CARET  &kp AMPS   &kp STAR   &kp LPAR   &kp RPAR
-    &kp TILDE  &kp MINUS  &kp PLUS   &kp EQUAL   &kp UNDER        &kp LBRC   &kp RBRC   &kp LBKT   &kp RBKT   &kp SQT
-    &trans     &trans     &trans     &trans      &trans           &kp LT     &kp GT     &trans     &trans     &kp DQT
-    &kp GRAVE  &trans     &trans     &trans                       &trans     &trans     &trans     &trans
-    &trans                                                                   &trans     &trans     &trans     &trans     &trans
+       &kp EXCL  &kp AT    &kp HASH &kp DLLR  &kp PRCNT       &kp CARET &kp AMPS &kp STAR &kp LPAR &kp RPAR
+       &kp TILDE &kp MINUS &kp PLUS &kp EQUAL &kp UNDER       &kp LBRC  &kp RBRC &kp LBKT &kp RBKT &kp SQT
+       &kp GRAVE &trans    &trans   &trans    &trans  &trans  &kp LT    &kp GT   &trans   &trans   &kp DQT &trans
+                           &trans   &trans    &trans          &trans    &trans   &trans
+       
+       &trans                                                 &trans &trans &trans &trans &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
@@ -124,11 +136,12 @@
         adj_layer {
             display-name = "Adj";
             bindings = <
-    &kp F1     &kp F2       &kp F3       &kp F4       &kp F5           &kp F6     &kp F7     &kp F8     &kp F9     &kp F10
-    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3     &trans     &trans     &trans     &trans     &kp F11
-    &trans     &trans       &trans       &trans       &trans           &trans     &trans     &trans     &trans     &kp F12
-    &sys_reset &trans       &trans       &trans                        &trans     &trans     &trans     &trans
-    &trans                                                                        &trans     &trans     &trans     &trans &trans
+       &kp F1     &kp F2       &kp F3       &kp F4       &kp F5           &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
+       &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3     &trans &trans &trans &trans &kp F11
+       &sys_reset &trans       &trans       &trans       &trans  &trans   &trans &trans &trans &trans &kp F12 &trans
+                               &trans       &trans       &trans           &trans &trans &trans
+       
+       &trans                                                             &trans &trans &trans &trans &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
