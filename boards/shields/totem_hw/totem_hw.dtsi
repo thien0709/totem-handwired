@@ -52,13 +52,14 @@
         };
     };
 
-    default_transform: keymap_transform_0 {
+   default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
 
         columns = <10>;
         rows = <5>;
 
         map = <
+            // 3 Hàng trên cùng giữ nguyên
             RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4)
             RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9)
 
@@ -68,9 +69,11 @@
             RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4)
             RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9)
 
-            RC(3,0) RC(3,1) RC(3,2) RC(3,3)
+            // HÀNG 4 BÊN TRÁI: Đã đảo RC(3,3) lên đầu để khớp LCTRL với ngón út
+            RC(3,3) RC(3,0) RC(3,1) RC(3,2)
             RC(3,5) RC(3,6) RC(3,7) RC(3,8)
 
+            // Hàng 5: Encoder và Switch 5 hướng
             RC(4,0)
             RC(4,5) RC(4,6) RC(4,7) RC(4,8) RC(4,9)
         >;
