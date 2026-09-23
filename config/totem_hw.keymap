@@ -2,7 +2,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 100
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 20
 #include <dt-bindings/zmk/pointing.h>
 
 #define BASE 0
@@ -52,20 +52,17 @@
                 bindings = <&kp>, <&kp>;
             };
 
-            // Sửa lại behavior cho cuộn chuột bằng sensor-rotate-var chuẩn ZMK
-            scroll_mouse_vert: scroll_mouse_vert {
-                compatible = "zmk,behavior-sensor-rotate-var";
-                #sensor-binding-cells = <2>;
-                bindings = <&msc>, <&msc>;
-                tap-ms = <20>;
-            };
-            
-            scroll_mouse_hor: scroll_mouse_hor {
-                compatible = "zmk,behavior-sensor-rotate-var";
-                #sensor-binding-cells = <2>;
-                bindings = <&msc>, <&msc>;
-                tap-ms = <20>;
-            };
+        scroll_mouse_vert: scroll_mouse_vert {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc>, <&msc>;
+        };
+
+        scroll_mouse_hor: scroll_mouse_hor {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc>, <&msc>;
+        };
         };
 
     keymap {
@@ -80,7 +77,10 @@
     &kp LCTRL  &kp LGUI   &mt_opt LALT TAB  &lt_opt NAV SPACE   &lt_opt SYM RET   &mt_opt RALT BSPC   &kp DEL    &kp RSHFT
     &kp C_MUTE &kp C_PLAY_PAUSE
             >;
-            sensor-bindings = <&scroll_mouse_vert SCRL_UP SCRL_DOWN &scroll_mouse_hor SCRL_LEFT SCRL_RIGHT>;
+            sensor-bindings = <
+                &scroll_mouse_vert SCRL_UP SCRL_DOWN
+                &scroll_mouse_hor  SCRL_LEFT SCRL_RIGHT
+            >;
         };
 
         nav_layer {
@@ -92,7 +92,10 @@
     &trans     &trans     &trans      &trans                      &trans     &trans     &kp DEL     &trans
     &trans     &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+            sensor-bindings = <
+                &inc_dec_kp C_VOL_UP C_VOL_DN
+                &inc_dec_kp C_BRI_UP C_BRI_DN
+            >;
         };
 
         sym_layer {
@@ -104,7 +107,10 @@
     &trans     &trans     &trans      &trans                      &trans     &trans     &trans      &trans
     &trans     &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+            sensor-bindings = <
+                &inc_dec_kp C_VOL_UP C_VOL_DN
+                &inc_dec_kp C_BRI_UP C_BRI_DN
+            >;
         };
 
         adj_layer {
@@ -116,7 +122,10 @@
     &trans        &trans        &trans        &trans                         &trans           &trans           &trans           &trans
     &trans        &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+            sensor-bindings = <
+                &inc_dec_kp C_VOL_UP C_VOL_DN
+                &inc_dec_kp C_BRI_UP C_BRI_DN
+            >;
         };
     };
 };
