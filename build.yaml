@@ -1,7 +1,7 @@
 include:
-  - board: nice_nano_v2
+  - board: nice_nano//zmk
     shield: totem_hw_left
-  - board: nice_nano_v2
+  - board: nice_nano//zmk
     shield: totem_hw_right
-  - board: nice_nano_v2
+  - board: nice_nano//zmk
     shield: settings_reset
