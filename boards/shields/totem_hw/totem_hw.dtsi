@@ -11,7 +11,7 @@
             a-gpios = <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;   
             b-gpios = <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; 
             steps = <24>;
-            resolution = <2>;
+            resolution = <4>;
             status = "disabled";
         };
 
@@ -20,14 +20,14 @@
             a-gpios = <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
             b-gpios = <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
             steps = <24>;
-            resolution = <2>; 
+            resolution = <4>; 
             status = "disabled";
         };
 
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder &right_encoder>;
-        triggers-per-rotation = <24>; 
+        // triggers-per-rotation = <24>;
     };
 
     // Ma trận phím
