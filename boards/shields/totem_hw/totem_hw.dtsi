@@ -9,7 +9,7 @@
     left_encoder: encoder_left {
             compatible = "alps,ec11";
             a-gpios = <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;   
-            b-gpios = <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; 
+            b-gpios = <&gpio1 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; 
             steps = <24>;
             resolution = <4>;
             status = "disabled";
@@ -18,7 +18,7 @@
     right_encoder: encoder_right {
             compatible = "alps,ec11";
             a-gpios = <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-            b-gpios = <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+            b-gpios = <&gpio1 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
             steps = <24>;
             resolution = <4>; 
             status = "disabled";
