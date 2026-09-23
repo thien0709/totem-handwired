@@ -1,7 +1,7 @@
 include:
-  - board: nice_nano_v2
+  - board: promicro_nrf52840
     shield: totem_hw_left
-  - board: nice_nano_v2
+  - board: promicro_nrf52840
     shield: totem_hw_right
-  - board: nice_nano_v2
+  - board: promicro_nrf52840
     shield: settings_reset
