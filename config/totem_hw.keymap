@@ -52,11 +52,19 @@
                 bindings = <&kp>, <&kp>;
             };
 
-            encoder_scroll: encoder_scroll {
-                    compatible = "zmk,behavior-sensor-rotate-var";
-                    #sensor-binding-cells = <2>;
-                    bindings = <&msc>, <&msc>;
-                };
+            scroll_mouse_vert: scroll_mouse_vert {
+                compatible = "zmk,behavior-sensor-rotate-var";
+                #sensor-binding-cells = <2>;
+                bindings = <&msc>, <&msc>;
+                tap-ms = <20>;
+            };
+            
+            scroll_mouse_hor: scroll_mouse_hor {
+                compatible = "zmk,behavior-sensor-rotate-var";
+                #sensor-binding-cells = <2>;
+                bindings = <&msc>, <&msc>;
+                tap-ms = <20>;
+            };
         };
 
     keymap {
@@ -71,7 +79,7 @@
     &kp LCTRL  &kp LGUI   &mt_opt LALT TAB  &lt_opt NAV SPACE   &lt_opt SYM RET   &mt_opt RALT BSPC   &kp DEL    &kp RSHFT
     &kp C_MUTE &kp C_PLAY_PAUSE
             >;
-            sensor-bindings = <&encoder_scroll SCRL_UP SCRL_DOWN &encoder_scroll SCRL_LEFT SCRL_RIGHT>;
+            sensor-bindings = <&scroll_mouse_vert SCRL_UP SCRL_DOWN &scroll_mouse_hor SCRL_LEFT SCRL_RIGHT>;
         };
 
         nav_layer {
