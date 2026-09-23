@@ -34,38 +34,39 @@
     };
 
     behaviors {
-        lt_opt: layer_tap_optimized {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <175>;
-            bindings = <&mo>, <&kp>;
-        };
+            lt_opt: layer_tap_optimized {
+                compatible = "zmk,behavior-hold-tap";
+                #binding-cells = <2>;
+                flavor = "balanced";
+                tapping-term-ms = <200>;
+                quick-tap-ms = <175>;
+                bindings = <&mo>, <&kp>;
+            };
 
-        mt_opt: mod_tap_optimized {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <150>;
-            bindings = <&kp>, <&kp>;
-        };
+            mt_opt: mod_tap_optimized {
+                compatible = "zmk,behavior-hold-tap";
+                #binding-cells = <2>;
+                flavor = "tap-preferred";
+                tapping-term-ms = <200>;
+                quick-tap-ms = <150>;
+                bindings = <&kp>, <&kp>;
+            };
 
-        // Thiết lập núm xoay cuộn dọc chuẩn con lăn chuột
-        scroll_mouse_vert: scroll_mouse_vert {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+            // Sửa lại behavior cho cuộn chuột bằng sensor-rotate-var chuẩn ZMK
+            scroll_mouse_vert: scroll_mouse_vert {
+                compatible = "zmk,behavior-sensor-rotate-var";
+                #sensor-binding-cells = <2>;
+                bindings = <&msc>, <&msc>;
+                tap-ms = <20>;
+            };
+            
+            scroll_mouse_hor: scroll_mouse_hor {
+                compatible = "zmk,behavior-sensor-rotate-var";
+                #sensor-binding-cells = <2>;
+                bindings = <&msc>, <&msc>;
+                tap-ms = <20>;
+            };
         };
-        
-        // Thiết lập núm xoay cuộn ngang chuẩn con lăn chuột
-        scroll_mouse_hor: scroll_mouse_hor {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
-        };
-    };
 
     keymap {
         compatible = "zmk,keymap";
@@ -79,7 +80,7 @@
     &kp LCTRL  &kp LGUI   &mt_opt LALT TAB  &lt_opt NAV SPACE   &lt_opt SYM RET   &mt_opt RALT BSPC   &kp DEL    &kp RSHFT
     &kp C_MUTE &kp C_PLAY_PAUSE
             >;
-            sensor-bindings = <&scroll_mouse_vert &scroll_mouse_hor>;
+            sensor-bindings = <&scroll_mouse_vert SCRL_DOWN SCRL_UP &scroll_mouse_hor SCRL_RIGHT SCRL_LEFT>;
         };
 
         nav_layer {
