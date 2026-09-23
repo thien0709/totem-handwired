@@ -19,7 +19,9 @@
 };
 
 &right_encoder {
-    a-gpios = <&gpio1 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-    b-gpios = <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
     status = "okay";
+};
+
+&sensors {
+    sensors = <&right_encoder>;
 };
