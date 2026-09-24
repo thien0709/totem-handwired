@@ -94,7 +94,7 @@
     &trans     &trans     &trans      &trans                      &trans     &trans     &kp DEL     &trans
     &trans     &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
 
         sym_layer {
@@ -106,7 +106,7 @@
     &trans     &trans     &trans      &trans                      &trans     &trans     &trans      &trans
     &trans     &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
 
         adj_layer {
@@ -118,7 +118,7 @@
     &trans        &trans        &trans        &trans                         &trans           &trans           &trans           &trans
     &trans        &trans
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
     };
 };
