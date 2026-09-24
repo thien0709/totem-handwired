@@ -54,13 +54,13 @@
                 quick-tap-ms = <150>;
                 bindings = <&kp>, <&kp>;
             };
-            
+                        
             scroll_mouse: scroll_mouse {
-                    compatible = "zmk,behavior-sensor-rotate-var";
-                    #sensor-binding-cells = <0>;
-                    bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
-                    tap-ms = <20>;  
-                };
+                compatible = "zmk,behavior-sensor-rotate-var";
+                #sensor-binding-cells = <2>;
+                // Chỉ để &msc trống, nó sẽ nhận giá trị từ sensor-bindings ở layer truyền vào
+                bindings = <&msc>, <&msc>; 
+            };
         };
 
     keymap {
