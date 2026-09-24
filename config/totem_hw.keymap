@@ -1,4 +1,4 @@
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 20
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 500
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
@@ -54,19 +54,12 @@
                 quick-tap-ms = <150>;
                 bindings = <&kp>, <&kp>;
             };
-
-            scroll_mouse_vert: scroll_mouse_vert {
-                compatible = "zmk,behavior-sensor-rotate-var";
-                #sensor-binding-cells = <2>;
-                bindings = <&msc>, <&msc>;
-                tap-ms = <20>;
-            };
             
             scroll_mouse: scroll_mouse {
                     compatible = "zmk,behavior-sensor-rotate-var";
-                    #sensor-binding-cells = <2>;
-                    bindings = <&msc>, <&msc>;
-                    tap-ms = <60>;  
+                    #sensor-binding-cells = <0>;
+                    bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+                    tap-ms = <20>;  
                 };
         };
 
