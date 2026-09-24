@@ -11,6 +11,11 @@
 #define SYM  2
 #define ADJ  3
 
+&msc {
+    acceleration-exponent = <0>;
+    time-to-max-speed-ms = <0>;
+};
+
 / {
     combos {
         compatible = "zmk,combos";
@@ -36,6 +41,8 @@
         };
     };
 
+    
+
     behaviors {
             lt_opt: layer_tap_optimized {
                 compatible = "zmk,behavior-hold-tap";
@@ -56,10 +63,10 @@
             };
                         
             scroll_mouse: scroll_mouse {
-                compatible = "zmk,behavior-sensor-rotate-var";
-                #sensor-binding-cells = <2>;
-                // Chỉ để &msc trống, nó sẽ nhận giá trị từ sensor-bindings ở layer truyền vào
-                bindings = <&msc>, <&msc>; 
+                        compatible = "zmk,behavior-sensor-rotate-var";
+                        #sensor-binding-cells = <2>;
+                        bindings = <&msc>, <&msc>;
+                        tap-ms = <50>;
             };
         };
 
