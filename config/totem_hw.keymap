@@ -1,4 +1,4 @@
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 50
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 40
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
@@ -66,7 +66,7 @@
                         compatible = "zmk,behavior-sensor-rotate-var";
                         #sensor-binding-cells = <2>;
                         bindings = <&msc>, <&msc>;
-                        tap-ms = <50>;
+                        tap-ms = <20>;
             };
         };
 
