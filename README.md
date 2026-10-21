@@ -67,7 +67,7 @@ R3  P0.24 ───●───────●───────●───�
 
 ### Scroll Wheel Encoder (Mouse Roller)
 
-The roller has two parts: the **wheel sensor** (3 pins) and the **click button** (2 pins).
+  The roller has two parts: the **wheel sensor** (3 pins) and the **click button** (2 pins).
 
 | Roller pin           | Connect to | Notes                                   |
 |----------------------|------------|-----------------------------------------|
@@ -77,9 +77,9 @@ The roller has two parts: the **wheel sensor** (3 pins) and the **click button**
 | Click button: pin 1  | P1.11      | Button signal                           |
 | Click button: pin 2  | GND        | Joined to the wheel sensor's middle pin |
 
-#### Debounce Capacitors (Optional)
+### Debounce Capacitors (Optional)
 
-If the wheel scrolls erratically or jumps backwards, add one ceramic capacitor (**10nF to 100nF**, marked `103` or `104`) on each wheel signal line. Ceramic capacitors have no polarity, so either leg can go either way. Solder them as close to the roller as possible.
+  If the wheel scrolls erratically or jumps backwards, add one ceramic capacitor (**10nF to 100nF**, marked `103` or `104`) on each wheel signal line. Ceramic capacitors have no polarity, so either leg can go either way. Solder them as close to the roller as possible.
 
 ```
 P0.11 ──┬── Wheel sensor: left
@@ -92,7 +92,6 @@ P0.11 ──┬── Wheel sensor: left
         │
 P1.04 ──┴── Wheel sensor: right
 ```
-The middle point is GND: each capacitor connects one signal wire to GND.
 ---
 ## 0. Base Layer
 Standard QWERTY layout with Home Row Mods on thumbs and outer pinky keys for modifiers.
