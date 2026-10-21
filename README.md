@@ -3,14 +3,13 @@
 A custom hand-wired build of the **Totem** split ergonomic keyboard. This project leverages the **Supermini NRF52840** for wireless connectivity and features **Horizontal Roller Encoders** for seamless navigation.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c85db919-c958-4709-ad34-945435c07bfc" width="100%" alt="Totem Keyboard Main View" />
+  <img src="https://github.com/user-attachments/assets/c50f8c00-dadd-4662-810c-7f6dee25dd39" width="100%" alt="Totem Keyboard Main View" />
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6ea796ca-0fb8-4ace-aada-1f717dcd3d04" width="22%" />
-  <img src="https://github.com/user-attachments/assets/13ee022c-3d65-4a6f-8fdc-f7fd5ac9918a" width="22%" />
-  <img src="https://github.com/user-attachments/assets/0d38912d-581d-4dac-b306-2aa4fa8da1a1" width="22%" />
-  <img src="https://github.com/user-attachments/assets/1a5d2c52-6d3c-4d7b-b08b-d8e7c30b010f" width="22%" />
+  <img width="1020" height="1020" alt="cc52432b740cf452ad1d" src="https://github.com/user-attachments/assets/d9c59ff1-d332-4bff-9159-ee9027d32570" />
+  <img src="https://github.com/user-attachments/assets/53a66e0b-e28d-438d-ba79-a15c3db18404" width="49%" alt="Totem Keyboard Detail 1" />
+  <img src="https://github.com/user-attachments/assets/0d38912d-581d-4dac-b306-2aa4fa8da1a1" width="49%" alt="Totem Keyboard Detail 2" />
 </p>
 
 ---
