@@ -13,7 +13,7 @@ A custom hand-wired build of the **Totem** split ergonomic keyboard. This projec
 </p>
 
 ---
-##  Hardware Components
+##   Hardware Components
 
 ### Core Components
 - **Case**: [Totem_Case](https://drive.google.com/drive/folders/1gwYmMvKHHdeVcXvl8slok06qVYsDDdrA?usp=sharing)
@@ -27,7 +27,7 @@ A custom hand-wired build of the **Totem** split ergonomic keyboard. This projec
 
 ---
 
-##  Wiring Guide (Handwired)
+##   Wiring Guide (Handwired)
 
 This section describes how to wire the **Totem Handwired** keyboard using the **Supermini NRF52840**.
 
@@ -177,7 +177,7 @@ Simultaneous key presses for quick actions:
 | **DEL**                | `O` + `P`        | Delete (Alternative to Thumb Delete).                 |
 | **TOGGLE NAV**         | `Space` + `Enter`| Switch to Nav layer permanently for fast number entry.|
 
-##  Installation
+##   Installation
 1. Download and extract the [Totem Firmware](https://github.com/thien0709/Totem_Handwired/releases/tag/firmware)
 2. **Enter Bootloader:**
    Connect the keyboard to your PC via USB. Quickly **double-tap the Reset button**. A storage drive named `NICENANO` will appear on your computer.
