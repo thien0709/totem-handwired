@@ -6,28 +6,26 @@
         zmk,matrix-transform = &default_transform;
     };
 
-    // Encoder Trái
     left_encoder: encoder_left {
-        compatible = "alps,ec11";
-        a-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <24>;
-        status = "disabled";
-    };
+            compatible = "alps,ec11";
+            a-gpios = <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;   
+            b-gpios = <&gpio1 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; 
+            steps = <24>;
+            status = "disabled";
+        };
 
-    // Encoder Phải
     right_encoder: encoder_right {
-        compatible = "alps,ec11";
-        a-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <24>;
-        status = "disabled";
-    };
+            compatible = "alps,ec11";
+            a-gpios = <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+            b-gpios = <&gpio1 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+            steps = <24>;
+            status = "disabled";
+        };
 
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder &right_encoder>;
-        triggers-per-rotation = <24>;
+        triggers-per-rotation = <12>;
     };
 
     // Ma trận phím
@@ -36,10 +34,10 @@
         wakeup-source;
         diode-direction = "col2row";
         row-gpios
-            = <&gpio0 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&gpio0 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&gpio1 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+            = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 22  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 
     kscan_direct: kscan_direct {
