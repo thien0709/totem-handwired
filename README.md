@@ -7,9 +7,9 @@ A custom hand-wired build of the **Totem** split ergonomic keyboard. This projec
 </p>
 
 <p align="center">
-  <img width="1020" height="1020" alt="cc52432b740cf452ad1d" src="https://github.com/user-attachments/assets/d9c59ff1-d332-4bff-9159-ee9027d32570" />
-  <img src="https://github.com/user-attachments/assets/53a66e0b-e28d-438d-ba79-a15c3db18404" width="49%" alt="Totem Keyboard Detail 1" />
-  <img src="https://github.com/user-attachments/assets/0d38912d-581d-4dac-b306-2aa4fa8da1a1" width="49%" alt="Totem Keyboard Detail 2" />
+  <img src="https://github.com/user-attachments/assets/d9c59ff1-d332-4bff-9159-ee9027d32570" width="32%" alt="Totem Keyboard Detail 1" />
+  <img src="https://github.com/user-attachments/assets/53a66e0b-e28d-438d-ba79-a15c3db18404" width="32%" alt="Totem Keyboard Detail 2" />
+  <img src="https://github.com/user-attachments/assets/0d38912d-581d-4dac-b306-2aa4fa8da1a1" width="32%" alt="Totem Keyboard Detail 3" />
 </p>
 
 ---
